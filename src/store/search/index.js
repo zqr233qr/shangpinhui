@@ -1,4 +1,4 @@
-//home模块的小仓库
+//search模块的小仓库
 const state = {};
 const mutations = {};
 const actions = {};

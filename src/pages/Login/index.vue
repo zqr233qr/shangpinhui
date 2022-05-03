@@ -1,6 +1,6 @@
 <template>
     <div>
-        主页
+        登录
     </div>
 </template>
 

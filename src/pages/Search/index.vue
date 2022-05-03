@@ -1,6 +1,8 @@
 <template>
     <div>
-        主页
+        搜索
+        <h1>params参数{{this.$route.params.keyword}}</h1>
+        <h1>query参数{{this.$route.query.k}}</h1>
     </div>
 </template>
 
