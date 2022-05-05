@@ -10,8 +10,8 @@ import "nprogress/nprogress.css";
 const requests = axios.create({
     //配置对象
     //基础路径，发请求的时候，路径会出现api
-    //最好加/,虽然这里不加也行，因为在vue.config.js文件中有代理，但为了不出错加
-    baseURL: '/api',
+    //这里要加/
+    baseURL: '/mock',
     //代表请求超时时间5s
     timeout: 5000,
 
@@ -31,7 +31,7 @@ requests.interceptors.response.use((res)=>{
     return res.data;
 },(error) => {
     //响应失败的回调函数
-    return Promise.reject(new Error('faile'))
+    alert("服务器响应数据失败");
 })
 
 //对外暴露

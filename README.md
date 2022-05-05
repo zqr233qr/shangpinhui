@@ -659,3 +659,91 @@ export default {
 
 
 
+11.完成样式
+
+
+
+12.函数防抖与节流*******面试题
+
+正常：事件触发非常频繁，而且每一次的触发，回调函数都要去执行（如果时间很短，而回调函数内部有计算，那么很可能出现浏览器卡顿）
+
+防抖：前面的所有的触发都被取消，最后一次执行在规定的时间之后才会触发，也就是说如果连续快速的触发,只会执行最后一次
+
+节流：在规定的间隔时间范围内不会重复触发回调，只有大于这个时间间隔才会触发回调，把频繁触发变为少量触发
+
+home/index.vue
+
+```js
+    //节流，引入lodash（按需引入）
+    import throttle from 'lodash/throttle'
+	methods: {
+            //鼠标进入修改响应式数据currentIndex属性
+            //es6写法，不适应于写节流
+            // changeIndex(index){
+            //     this.currentIndex = index
+            // },
+
+            //es5写法，throttle回调函数别用箭头函数，可能会出现上下文this问题
+            changeIndex:throttle(function (index) {
+                this.currentIndex = index
+            },50),
+
+            leaveIndex(){
+                this.currentIndex = -1
+            }
+        }
+```
+
+
+
+***Day4***
+
+1开发Search中的TypeNav
+
+1.1过渡动画：前提组件|元素务必要有v-if|v-show指令才可以进行过渡动画
+
+1.2对商品分类的三级列表进行优化
+
+​		在App根组件当中发送请求（根组件mounted）执行一次
+
+1.3合并params与query参数
+
+
+
+1.4开发Home首页当中的ListContainer组件与Floor组件？
+
+但是这里需要知道一件事情：服务器返回的数据（接口）只有商品分类菜单分类数据，没有这个相关的数据提供，所以这里所有mock
+
+mock数据（模拟）：如果你想mock数据，需要用到一个插件mockjs
+
+安装mockjs：npm i mockjs
+
+使用步骤：
+
+1）在项目当中src文件夹中创建mock文件夹
+
+2）第二步准备JSON数据（mock文件夹中创建相应的JSON文件（.json））--不能有空格
+
+3）把mock数据需要的图片放置早public文件夹中（public文件夹在打包的时候，会把相应的资源打包到dist文件夹中）
+
+4）创建mockServer.js通过mockjs插件实现模拟数据
+
+mockServer.js
+
+```js
+//先引入mockjs模块
+import Mock from 'mockjs'
+//把JSON数据格式引入进来（JSON数据格式没有暴露但可以引入）
+//webpack默认对外暴露的图片、JSON数据格式
+import banners from './banners'
+import floors from './floors'
+
+//mock数据：第一个参数：请求地址 第二个参数：请求数据
+Mock.mock('/mock/banner',{code:200,data:banners})
+Mock.mock('/mock/floor',{code:200,data:floors})
+
+```
+
+
+
+5）mockServer.js文件在入口文件中引入（至少需要执行一次才能模拟数据）
